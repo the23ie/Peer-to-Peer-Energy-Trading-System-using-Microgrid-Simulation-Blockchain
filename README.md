@@ -5,6 +5,7 @@ A decentralized peer-to-peer (P2P) energy trading platform that enables househol
 This project simulates a 5-household microgrid in MATLAB/Simulink, where each household generates energy through rooftop solar, consumes power based on load demand, and stores excess energy in batteries. The system identifies surplus energy, converts it into tradeable units, and uses an Ethereum-based blockchain to facilitate secure and transparent transactions. A React.js + Node.js web application provides a user-friendly dashboard for monitoring energy data, viewing listings, managing token balances, and performing trades via MetaMask. The architecture and workflow match the three-layer system (simulation, blockchain, application) you described.
 
 🚀 Key Features
+
 - ☀️ Microgrid simulation of 5 households with solar generation, energy consumption, and battery storage
 - 🔋 Surplus energy detection and conversion into tradeable energy tokens
 - ⛓️ Ethereum smart contracts for secure listing, pricing, and transaction validation
