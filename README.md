@@ -37,13 +37,13 @@ The architecture of the system is composed of:
 
 ## Setup Instructions
 ### Prerequisites
--Node.js and npm
--MATLAB / Simulink
--Hardhat(can compile online as well)
--MetaMask
--Ethereum Sepolia Testnet access
--Sepolia test ETH
--Properly configured .env, backend/.env, and frontend/.env.local
+- Node.js and npm
+- MATLAB / Simulink
+- Hardhat(can be compile online as well or avoid deployment altogether and use the original address)
+- MetaMask
+- Ethereum Sepolia Testnet access
+- Sepolia test ETH
+- Properly configured .env, backend/.env, and frontend/.env.local
 
 ### Installation Steps
 ## ▶️ How to Run
