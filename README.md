@@ -25,10 +25,18 @@ This project simulates a 5-household microgrid in MATLAB/Simulink, where each ho
 
 
 
+
+
+
+
 Architecture
 1. **User Interface** - A web-based dashboard for users to interact with the system.
 2. **Backend Services** - Handles requests from the frontend and interacts with the blockchain.
 3. **Blockchain Layer** - Manages all transactions securely and maintains transparency.
+
+
+
+
 
 
 
@@ -40,6 +48,10 @@ Architecture
 - Backend: Node.js, Express.js
 - Blockchain: Solidity, Ethereum, MetaMask, Web3
 - Simulation: MATLAB, Simulink
+
+
+
+
 
 
 
