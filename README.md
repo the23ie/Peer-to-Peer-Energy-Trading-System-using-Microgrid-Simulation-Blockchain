@@ -12,12 +12,17 @@ This project simulates a 5-household microgrid in MATLAB/Simulink, where each ho
 - 🖥️ Web dashboard for visualizing household energy statistics and marketplace activity
 - 📊 Marketplace listings, token balances, and transaction history
 - 🌱 Environmental impact tracking such as CO₂ savings and renewable energy utilization
+
+
   
 - **Decentralized Trading:** Users can trade energy without the need for a central authority.
 - **Microgrid Simulation:** Simulates real-world microgrid scenarios for optimal energy distribution.
 - **Blockchain Integration:** Secure and transparent transactions through blockchain technology.
 - **User-Friendly Interface:** Simple dashboard for monitoring trading activities and energy consumption.
 - **Data Analytics:** Insights into energy usage patterns and market trends.
+
+
+
 
 
 Architecture
@@ -27,12 +32,18 @@ The architecture of the system is composed of:
 3. **Blockchain Layer** - Manages all transactions securely and maintains transparency.
 
 
+
+
+
    
 🛠️ Tech Stack
 - Frontend: React.js, JavaScript
 - Backend: Node.js, Express.js
 - Blockchain: Solidity, Ethereum, MetaMask, Web3
 - Simulation: MATLAB, Simulink
+
+
+
 
   
 ▶️ How to Run
