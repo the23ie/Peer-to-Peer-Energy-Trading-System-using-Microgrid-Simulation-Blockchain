@@ -22,6 +22,9 @@ This project simulates a 5-household microgrid in MATLAB/Simulink, where each ho
 
 🛠️ Tech Stack
 Frontend: React.js, JavaScript
+
 Backend: Node.js, Express.js
+
 Blockchain: Solidity, Ethereum, MetaMask, Web3
+
 Simulation: MATLAB, Simulink
