@@ -26,7 +26,6 @@ This project simulates a 5-household microgrid in MATLAB/Simulink, where each ho
 
 
 Architecture
-The architecture of the system is composed of:
 1. **User Interface** - A web-based dashboard for users to interact with the system.
 2. **Backend Services** - Handles requests from the frontend and interacts with the blockchain.
 3. **Blockchain Layer** - Manages all transactions securely and maintains transparency.
