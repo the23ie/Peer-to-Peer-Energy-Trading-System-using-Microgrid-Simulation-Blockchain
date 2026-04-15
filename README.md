@@ -7,12 +7,19 @@ This project simulates a 5-household microgrid in MATLAB/Simulink, where each ho
 
 🚀 Key Features
 ☀️ Microgrid simulation of 5 households with solar generation, energy consumption, and battery storage
+
 🔋 Surplus energy detection and conversion into tradeable energy tokens
+
 ⛓️ Ethereum smart contracts for secure listing, pricing, and transaction validation
+
 👛 MetaMask integration for wallet connection and blockchain transaction approval
+
 🖥️ Web dashboard for visualizing household energy statistics and marketplace activity
+
 📊 Marketplace listings, token balances, and transaction history
+
 🌱 Environmental impact tracking such as CO₂ savings and renewable energy utilization
+
 🛠️ Tech Stack
 Frontend: React.js, JavaScript
 Backend: Node.js, Express.js
