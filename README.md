@@ -66,17 +66,17 @@ npm install
 
 Set up the required environment files before running the project.
 
-Update the root .env file for blockchain deployment
-Update backend/.env for API, contract, and MATLAB data integration
-Update frontend/.env.local for frontend blockchain/API configuration
+- Update the root .env file for blockchain deployment
+- Update backend/.env for API, contract, and MATLAB data integration
+- Update frontend/.env.local for frontend blockchain/API configuration
 
 Typical configuration includes:
 
-Sepolia RPC URL
-Private key / deployer account
-Deployed contract addresses
-Backend API URL
-Contract ABI / network settings
+- Sepolia RPC URL
+- Private key / deployer account
+- Deployed contract addresses
+- Backend API URL
+- Contract ABI / network settings
 
 Ensure all contract addresses in the frontend and backend match the latest deployed smart contracts.
 
@@ -94,38 +94,38 @@ npx hardhat run scripts/deploy.ts --network sepolia
 ```
 The deployment includes core contracts such as:
 
-EnergyToken.sol
-EnergyMarketplace.sol
-EnergyDataRegistry.sol
-PriceOracle.sol
+- EnergyToken.sol
+- EnergyMarketplace.sol
+- EnergyDataRegistry.sol
+- PriceOracle.sol
 
 After deployment:
 
-Copy the deployed contract addresses
+- Copy the deployed contract addresses
 Update them in:
-backend/.env
-frontend/.env.local
-Ensure the correct ABI and network configuration are used by both the backend and frontend
+- backend/.env
+- frontend/.env.local
+- Ensure the correct ABI and network configuration are used by both the backend and frontend
 
 5. Configure MetaMask and Household Wallets
 
 Install the MetaMask browser extension and connect it to the Sepolia Testnet.
 
 MetaMask Setup
-Add / switch to Ethereum Sepolia
-Import test accounts with sufficient Sepolia ETH
-Use separate accounts to represent different households in the microgrid
-Household-to-Wallet Mapping
+- Add / switch to Ethereum Sepolia
+- Import test accounts with sufficient Sepolia ETH
+- Use separate accounts to represent different households in the microgrid
+- Household-to-Wallet Mapping
 
 The microgrid simulation models 5 households, and each household can be mapped to a unique Ethereum wallet address:
 
 ex : Household 1 → MetaMask Account 1
 
 This mapping allows each household to:
-Register as an energy participant
-Own its surplus energy listings
-Buy energy from other households
-Sign and validate blockchain transactions independently
+- Register as an energy participant
+- Own its surplus energy listings
+- Buy energy from other households
+- Sign and validate blockchain transactions independently
 
 Each wallet acts as the blockchain identity of a simulated household during energy trading.
 
@@ -149,28 +149,19 @@ The frontend is built with Next.js and will typically run at:
 
 http://localhost:3000
 
-The dashboard allows users to:
-
-View household energy statistics
-Check surplus energy availability
-List energy for sale
-Purchase energy from other households
-Track balances and transaction history
-Approve transactions through MetaMask
-
 8. Run the MATLAB/Simulink Simulation
 
-Open the microgrid model in MATLAB/Simulink and run the simulation to generate household energy data.
-The backend uses this simulation data to identify surplus energy for each household and prepare it for tokenization and trading.
+- Open the microgrid model in MATLAB/Simulink and run the simulation to generate household energy data.
+- The backend uses this simulation data to identify surplus energy for each household and prepare it for tokenization and trading.
 
 9. Access the Platform
 
 Once the contracts are deployed, backend is running, frontend is running, and simulation data is available:
 
 Open http://localhost:3000
-Connect the desired MetaMask household account
-View household production, consumption, battery status, and surplus energy
-List surplus energy in the marketplace
-Buy available energy from other households
-Approve transactions in MetaMask
-Monitor token balances and transaction history in real time
+- Connect the desired MetaMask household account
+- View household production, consumption, battery status, and surplus energy
+- List surplus energy in the marketplace
+- Buy available energy from other households
+- Approve transactions in MetaMask
+- Monitor token balances and transaction history in real time
