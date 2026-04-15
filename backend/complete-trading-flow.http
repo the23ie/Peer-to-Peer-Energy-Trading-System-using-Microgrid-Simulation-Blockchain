@@ -1,0 +1,321 @@
+### COMPLETE P2P ENERGY TRADING FLOW - DEBUG & FIX
+### Run these tests in order to debug and fix marketplace issues
+
+@baseUrl = http://localhost:3000
+@userA = 0x42af4243d5f5604152d628e8eb1a9b2440e7b868
+@userB = 0xaac6b405b4ebcc7e77e239d461a5ba604a3d64ed
+
+# ============================================
+# STEP 1: VERIFY SERVER & BLOCKCHAIN
+# ============================================
+
+### 1.1 Check Server Health
+GET {{baseUrl}}/health
+
+###
+
+### 1.2 Get API Info
+GET {{baseUrl}}/
+
+###
+
+# ============================================
+# STEP 2: ENSURE USERS ARE REGISTERED
+# ============================================
+
+### 2.1 Check if User A is Registered
+GET {{baseUrl}}/api/energy/user/{{userA}}
+
+###
+
+### 2.2 Check if User B is Registered  
+GET {{baseUrl}}/api/energy/user/{{userB}}
+
+###
+
+### 2.3 Register Users if Not Registered
+POST {{baseUrl}}/api/energy/register-users-batch
+Content-Type: application/json
+
+{
+  "users": [
+    { "address": "{{userA}}", "houseId": "HOUSE_A" },
+    { "address": "{{userB}}", "houseId": "HOUSE_B" }
+  ]
+}
+
+###
+
+# ============================================
+# STEP 3: SUBMIT ENERGY DATA (CREATE SURPLUS)
+# ============================================
+
+### 3.1 Submit Energy Data for User A (SURPLUS)
+POST {{baseUrl}}/api/energy/data
+Content-Type: application/json
+
+{
+  "userAddress": "{{userA}}",
+  "consumption": 40000,
+  "production": 90000
+}
+
+###
+
+### 3.2 Submit Energy Data for User B (DEFICIT)
+POST {{baseUrl}}/api/energy/data
+Content-Type: application/json
+
+{
+  "userAddress": "{{userB}}",
+  "consumption": 80000,
+  "production": 70000
+}
+
+###
+
+### 3.3 Verify User A Profile (Should have surplus + tokens)
+GET {{baseUrl}}/api/energy/user/{{userA}}
+
+###
+
+# ============================================
+# STEP 4: DEBUG USER TRADING READINESS
+# ============================================
+
+### 4.1 🔍 DEBUG User A Trading Status
+# This will show:
+# - Registration status
+# - Token balance
+# - Surplus energy
+# - Marketplace approval status
+# - Any issues preventing trading
+GET {{baseUrl}}/api/marketplace/debug/user/{{userA}}
+
+###
+
+### 4.2 🔍 DEBUG User B Trading Status
+GET {{baseUrl}}/api/marketplace/debug/user/{{userB}}
+
+###
+
+# ============================================
+# STEP 5: FIX APPROVAL ISSUE (IF NEEDED)
+# ============================================
+
+### 5.1 Approve Marketplace to Spend User A's Tokens
+# Note: In production, users approve from frontend
+# This endpoint is for testing with backend wallet
+POST {{baseUrl}}/api/marketplace/approve-marketplace
+Content-Type: application/json
+
+{
+  "userAddress": "{{userA}}",
+  "amount": "100"
+}
+
+###
+
+### 5.2 Verify Approval Worked
+GET {{baseUrl}}/api/marketplace/debug/user/{{userA}}
+
+###
+
+# ============================================
+# STEP 6: UPDATE MARKET PRICE
+# ============================================
+
+### 6.1 Get Current Price
+GET {{baseUrl}}/api/price/current
+
+###
+
+### 6.2 Update Price Based on Market Conditions
+POST {{baseUrl}}/api/price/update
+Content-Type: application/json
+
+{
+  "totalSupply": 150000,
+  "totalDemand": 120000
+}
+
+###
+
+# ============================================
+# STEP 7: LIST ENERGY FOR SALE (User A)
+# ============================================
+POST http://localhost:3000/api/marketplace/approve-marketplace
+Content-Type: application/json
+
+{
+  "userAddress": "{{userA}}",
+  "amount": "100"
+}
+
+### Step 3: Verify approval worked
+GET {{baseUrl}}/api/marketplace/debug/user/{{userA}}
+### 7.1 List 30 kWh at 0.15 ETH/kWh (FIXED PRICE)
+POST {{baseUrl}}/api/marketplace/list
+Content-Type: application/json
+
+{
+  "userAddress": "{{userA}}",
+  "energyAmount": 30000,
+  "pricePerUnit": "0.15",
+  "listingType": 0
+}
+
+###
+
+### 7.2 Verify Listing Created
+GET {{baseUrl}}/api/marketplace/listings
+
+###
+
+### 7.3 Get User A's Listings
+GET {{baseUrl}}/api/marketplace/listings/{{userA}}
+
+###
+
+### 7.4 Get Specific Listing Details (listingId = 1)
+GET {{baseUrl}}/api/marketplace/listing/1
+
+###
+
+### 7.5 Calculate Cost to Buy 30 kWh
+GET {{baseUrl}}/api/marketplace/calculate-cost/1/30000
+
+###
+
+# ============================================
+# STEP 8: BUY ENERGY (User B)
+# ============================================
+
+### 8.1 User B Buys 30 kWh from Listing 1
+# Note: totalCost from calculate-cost above (in wei)
+# Example: If totalCost is "4612500000000000" (4.6125e15 wei)
+POST {{baseUrl}}/api/marketplace/buy
+Content-Type: application/json
+
+{
+  "buyerAddress": "{{userB}}",
+  "listingId": 1,
+  "energyAmount": 30000
+}
+
+###
+
+### 8.2 Verify Trade Completed
+GET {{baseUrl}}/api/marketplace/trades/{{userB}}
+
+###
+
+### 8.3 Check User B's New Token Balance
+GET {{baseUrl}}/api/energy/user/{{userB}}
+
+###
+
+### 8.4 Check User A's Updated Surplus
+GET {{baseUrl}}/api/energy/user/{{userA}}
+
+###
+
+# ============================================
+# STEP 9: MARKETPLACE STATISTICS
+# ============================================
+
+### 9.1 Get Marketplace Stats
+GET {{baseUrl}}/api/marketplace/stats
+
+###
+
+### 9.2 Get All Active Listings
+GET {{baseUrl}}/api/marketplace/listings
+
+###
+
+### 9.3 Get Price History
+GET {{baseUrl}}/api/price/history
+
+###
+
+# ============================================
+# STEP 10: CANCEL LISTING (Optional)
+# ============================================
+
+### 10.1 User A Cancels a Listing
+POST {{baseUrl}}/api/marketplace/cancel
+Content-Type: application/json
+
+{
+  "userAddress": "{{userA}}",
+  "listingId": 1
+}
+
+###
+
+# ============================================
+# TROUBLESHOOTING ENDPOINTS
+# ============================================
+
+### Get All Registered Users
+GET {{baseUrl}}/api/energy/users
+
+###
+
+### Get User by House ID
+GET {{baseUrl}}/api/energy/house/HOUSE_A
+
+###
+
+### Calculate Optimal Price (Simulation)
+POST {{baseUrl}}/api/price/calculate
+Content-Type: application/json
+
+{
+  "supply": 150000,
+  "demand": 120000
+}
+
+###
+
+# ============================================
+# COMMON ERRORS & SOLUTIONS
+# ============================================
+
+# ERROR: "Insufficient surplus"
+# SOLUTION: Submit more energy data with production > consumption
+
+# ERROR: "Insufficient tokens"
+# SOLUTION: Energy tokens are minted when surplus is registered
+#           Check /api/energy/user/:address to see token balance
+
+# ERROR: "Insufficient allowance"
+# SOLUTION: Call /api/marketplace/approve-marketplace first
+
+# ERROR: "Update too frequent" (Price Oracle)
+# SOLUTION: Wait for minUpdateInterval (default 5 minutes)
+#           OR call contract setMinUpdateInterval(60) for testing
+
+# ERROR: "Listing is not active"
+# SOLUTION: Check /api/marketplace/listings to see active listings
+
+# ERROR: "Cannot buy your own listing"
+# SOLUTION: Use different address for buyer and seller
+
+# ERROR: "Insufficient energy in listing"
+# SOLUTION: Check listing.remainingAmount before buying
+
+# ============================================
+# SUCCESS INDICATORS
+# ============================================
+# ✅ User registered successfully
+# ✅ Energy data submitted (surplus > 0)
+# ✅ Tokens minted for surplus producers
+# ✅ Marketplace approved to spend tokens
+# ✅ Energy listed successfully
+# ✅ Energy purchased successfully
+# ✅ Tokens transferred buyer → seller
+# ✅ Payment transferred (ETH)
+# ✅ Trade history updated
+# ============================================

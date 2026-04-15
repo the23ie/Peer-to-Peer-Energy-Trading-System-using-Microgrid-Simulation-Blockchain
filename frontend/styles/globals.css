@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  
+}
+
+@layer components {
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-2xl p-6 shadow-card border border-primary-100;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-primary text-white rounded-xl font-medium hover:opacity-90 transition;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-gradient-secondary text-white rounded-xl font-medium hover:opacity-90 transition;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary-300 text-primary-700 rounded-xl font-medium hover:bg-primary-50 transition;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-3 border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-300 transition;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply px-3 py-1 text-sm font-medium rounded-lg;
+  }
+
+  .badge-primary {
+    @apply bg-primary-100 text-primary-800;
+  }
+
+  .badge-secondary {
+    @apply bg-secondary-100 text-secondary-700;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply bg-orange-100 text-orange-800;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}

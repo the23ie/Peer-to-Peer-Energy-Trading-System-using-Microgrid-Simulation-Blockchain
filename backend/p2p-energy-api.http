@@ -1,0 +1,85 @@
+### QUICK TEST - P2P Energy Trading Backend
+### Run these tests in order
+
+@baseUrl = http://localhost:3000
+
+# ============================================
+# QUICK START TESTS (Run in Order)
+# ============================================
+
+### 1. Is Server Running?
+GET {{baseUrl}}/health
+
+###
+
+### 2. Get API Info
+GET {{baseUrl}}/
+
+###
+
+### 3. Register Test User
+POST {{baseUrl}}/api/energy/register-user
+Content-Type: application/json
+
+{
+  "userAddress": "0x42af4243d5f5604152d628e8eb1a9b2440e7b868",
+  "houseId": "HOUSE_005"
+}
+
+###
+
+### 4. Submit Energy Data (Surplus)
+POST {{baseUrl}}/api/energy/data
+Content-Type: application/json
+
+{
+  "userAddress": "0x42af4243d5f5604152d628e8eb1a9b2440e7b868",
+  "consumption": 45000,
+  "production": 60000
+}
+
+###
+GET http://localhost:3000/api/marketplace/listings
+### 5. Check User Profile
+GET {{baseUrl}}/api/energy/user/0x42af4243d5f5604152d628e8eb1a9b2440e7b868
+
+###user has surplus and is trying to sell
+GET http://localhost:3000/api/marketplace/calculate-cost/1/10000
+### User A lists 10 kWh for sale
+POST http://localhost:3000/api/marketplace/list
+Content-Type: application/json
+
+{
+  "userAddress": "0x42af4243d5f5604152d628e8eb1a9b2440e7b868",
+  "energyAmount": 10000,
+  "pricePerUnit": "150000000000000000",
+  "listingType": 0
+}
+### 6. Get Current Price
+GET {{baseUrl}}/api/price/current
+
+###
+
+### 7. Update Price (Market Simulation)
+POST {{baseUrl}}/api/price/update
+Content-Type: application/json
+
+{
+  "totalSupply": 150000,
+  "totalDemand": 120000
+}
+
+###
+
+### 8. Check Marketplace
+GET {{baseUrl}}/api/marketplace/stats
+
+# ============================================
+# SUCCESS INDICATORS:
+# ============================================
+# ✅ All requests return 200 OK
+# ✅ User gets registered
+# ✅ Energy data is submitted
+# ✅ Tokens are minted for surplus
+# ✅ Price updates successfully
+# ============================================

@@ -1,0 +1,21 @@
+{
+  "name": "my-p2p-energy",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@types/chai": "^4.3.20",
+    "@types/chai-as-promised": "^8.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.19.0",
+    "chai": "^4.3.10",
+    "hardhat": "^2.22.10",
+    "mocha": "^11.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.8.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "dotenv": "^17.2.3",
+    "ethers": "^5.7.2"
+  }
+}

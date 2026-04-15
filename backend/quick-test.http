@@ -1,0 +1,75 @@
+### QUICK TEST - P2P Energy Trading Backend
+### Run these tests in order
+
+@baseUrl = http://localhost:3000
+
+# ============================================
+# QUICK START TESTS (Run in Order)
+# ============================================
+
+### 1. Is Server Running?
+GET {{baseUrl}}/health
+
+###
+
+### 2. Get API Info
+GET {{baseUrl}}/
+
+###
+
+### 3. Register Test User
+POST {{baseUrl}}/api/energy/register-user
+Content-Type: application/json
+
+{
+  "userAddress":"0xe807306ac51250b2bfba6aa173510ea68e525b41",
+  "houseId": "TEST_HOUSE_010"
+}
+
+###
+
+### 4. Submit Energy Data (Surplus)
+POST {{baseUrl}}/api/energy/data
+Content-Type: application/json
+
+{
+  "userAddress": "0x772c02a37699d7adad82d16c3478a038a59157b3",
+  "consumption": 45000,
+  "production": 60000
+}
+
+###
+
+### 5. Check User Profile
+GET {{baseUrl}}/api/energy/user/0x772c02a37699d7adad82d16c3478a038a59157b3
+
+###
+
+### 6. Get Current Price
+GET {{baseUrl}}/api/price/current
+
+###
+
+### 7. Update Price (Market Simulation)
+POST {{baseUrl}}/api/price/update
+Content-Type: application/json
+
+{
+  "totalSupply": 150000,
+  "totalDemand": 120000
+}
+
+###
+
+### 8. Check Marketplace
+GET {{baseUrl}}/api/marketplace/stats
+
+# ============================================
+# SUCCESS INDICATORS:
+# ============================================
+# ✅ All requests return 200 OK
+# ✅ User gets registered
+# ✅ Energy data is submitted
+# ✅ Tokens are minted for surplus
+# ✅ Price updates successfully
+# ============================================
